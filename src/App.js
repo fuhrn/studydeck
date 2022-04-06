@@ -6,6 +6,7 @@ import {getCards} from './services/cardService'
 
 function App() {
   const [cards, setCards] = useState([])
+  
   useEffect(() => {
     // de esta manera el componente no sabe de donde saca la data, escondiendo los detalles de implementacion
     // ademas, puedo reutilizar ese servicio si algun otro component necesita consultar las cards
@@ -15,6 +16,10 @@ function App() {
       // .then((cards) => {
       //   setCards(cards);
       // })
+  
+  function handleRemove(id) {
+    setCards(existing => existing.filter(c => c.id !== id))
+  }
   return (
     <div>
       <header>
@@ -28,7 +33,7 @@ function App() {
         {/* <pre>{JSON.stringify(cards, null, 2)}</pre> */}
         <div className="gridContainer">
           {cards.map(({id, definition, term}) => (
-            <CardPreview key={id} definition={definition} term={term} />
+            <CardPreview key={id} id={ id } onRemove={handleRemove} definition={definition} term={term} />
           ))}
         </div>
       </main>
