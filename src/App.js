@@ -1,9 +1,19 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./normalize.css";
 import "./App.css";
 import { CardPreview } from "./components/CardPreview";
 
 function App() {
+  const [cards, setCards] = useState([])
+  useEffect(() => {
+    fetch("https://adaptive-basilisk.glitch.me/api/card")
+      .then((res) => res.json())
+      // similar forma de escribir el siguiente .then()
+      // .then((cards) => {
+      //   setCards(cards);
+      // })
+      .then(setCards)
+  }, [])
   return (
     <div>
       <header>
@@ -14,6 +24,7 @@ function App() {
       </header>
       <main>
         <h3>Your Cards</h3>
+        <pre>{JSON.stringify(cards, null, 2)}</pre>
         <div className="gridContainer">
           <CardPreview definition="quack" term="What does a duck say?" />
           <CardPreview definition="woof" term="What does a dog say?" />
