@@ -2,18 +2,19 @@ import React, {useState, useEffect} from "react";
 import "./normalize.css";
 import "./App.css";
 import { CardPreview } from "./components/CardPreview";
+import {getCards} from './services/cardService'
 
 function App() {
   const [cards, setCards] = useState([])
   useEffect(() => {
-    fetch("/api/card")
-      .then((res) => res.json())
-      // similar forma de escribir el siguiente .then()
+    // de esta manera el componente no sabe de donde saca la data, escondiendo los detalles de implementacion
+    // ademas, puedo reutilizar ese servicio si algun otro component necesita consultar las cards
+    getCards().then(setCards);
+  }, []);
+      // similar forma de escribir el ultimo .then()
       // .then((cards) => {
       //   setCards(cards);
       // })
-      .then(setCards)
-  }, [])
   return (
     <div>
       <header>
