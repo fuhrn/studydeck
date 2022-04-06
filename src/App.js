@@ -6,7 +6,7 @@ import { CardPreview } from "./components/CardPreview";
 function App() {
   const [cards, setCards] = useState([])
   useEffect(() => {
-    fetch("https://adaptive-basilisk.glitch.me/api/card")
+    fetch("/api/card")
       .then((res) => res.json())
       // similar forma de escribir el siguiente .then()
       // .then((cards) => {
